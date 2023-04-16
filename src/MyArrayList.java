@@ -21,4 +21,28 @@ public class MyArrayList {
         return false;
     }
 
+    public void add(T item) {
+        if (size == elements.length) {
+            Object[] newElements = new Object[size * 2];
+            System.arraycopy(elements, 0, newElements, 0, size);
+            elements = newElements;
+        }
+        elements[size] = item;
+        size++;
+    }
+
+    public void add(T item, int index) {
+        if (index < 0 || index > size) {
+            throw new IndexOutOfBoundsException();
+        }
+        if (size == elements.length) {
+            Object[] newElements = new Object[size * 2];
+            System.arraycopy(elements, 0, newElements, 0, size);
+            elements = newElements;
+        }
+        System.arraycopy(elements, index, elements, index + 1, size - index);
+        elements[index] = item;
+        size++;
+    }
+
 }
