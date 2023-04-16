@@ -44,5 +44,26 @@ public class MyArrayList {
         elements[index] = item;
         size++;
     }
+    public boolean remove(T item) {
+        for (int i = 0; i < size; i++) {
+            if (elements[i].equals(item)) {
+                System.arraycopy(elements, i + 1, elements, i, size - i - 1);
+                size--;
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public T remove(int index) {
+        if (index < 0 || index >= size) {
+            throw new IndexOutOfBoundsException();
+        }
+        T item = (T) elements[index];
+        System.arraycopy(elements, index + 1, elements, index, size - index - 1);
+        size--;
+        return item;
+    }
+
 
 }
