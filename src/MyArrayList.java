@@ -11,7 +11,7 @@ public class MyArrayList {
     public int size() {
         return size;
     }
-
+    @Override
     public boolean contains(Object o) {
         for (int i = 0; i < size; i++) {
             if (elements[i].equals(o)) {
@@ -21,6 +21,7 @@ public class MyArrayList {
         return false;
     }
 
+    @Override
     public void add(T item) {
         if (size == elements.length) {
             Object[] newElements = new Object[size * 2];
@@ -31,6 +32,7 @@ public class MyArrayList {
         size++;
     }
 
+    @Override
     public void add(T item, int index) {
         if (index < 0 || index > size) {
             throw new IndexOutOfBoundsException();
@@ -44,6 +46,7 @@ public class MyArrayList {
         elements[index] = item;
         size++;
     }
+    @Override
     public boolean remove(T item) {
         for (int i = 0; i < size; i++) {
             if (elements[i].equals(item)) {
@@ -54,7 +57,7 @@ public class MyArrayList {
         }
         return false;
     }
-
+    @Override
     public T remove(int index) {
         if (index < 0 || index >= size) {
             throw new IndexOutOfBoundsException();
@@ -65,5 +68,42 @@ public class MyArrayList {
         return item;
     }
 
+    @Override
+    public void clear() {
+        elements = new Object[10];
+        size = 0;
+    }
 
+    @Override
+    public T get(int index) {
+        if (index < 0 || index >= size) {
+            throw new IndexOutOfBoundsException();
+        }
+        return (T) elements[index];
+    }
+
+    @Override
+    public int indexOf(Object o) {
+        for (int i = 0; i < size; i++) {
+            if (elements[i].equals(o)) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    @Override
+    public int lastIndexOf(Object o) {
+        for (int i = size - 1; i >= 0; i--) {
+            if (elements[i].equals(o)) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    @Override
+    public void sort() {
+        Arrays.sort(elements, 0, size);
+    }
 }
