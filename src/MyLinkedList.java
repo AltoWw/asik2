@@ -55,3 +55,74 @@ public class MyLinkedList<T> implements MyList<T> {
     public boolean contains(Object o) {
         return indexOf(o) >= 0;
     }
+
+    public void add(T item) {
+        add(item, size);
+    }
+
+    public void add(T item, int index) {
+        if (index < 0 || index > size) {
+            throw new IndexOutOfBoundsException();
+        }
+        if (index == size) {
+            Node<T> newNode = new Node<>(item, tail, null);
+            if (tail != null) {
+                tail.next = newNode;
+            }
+            tail = newNode;
+            if (head == null) {
+                head = newNode;
+            }
+        } else {
+            Node<T> node = getNode(index);
+            Node<T> newNode = new Node<>(item, node.prev, node);
+            node.prev.next = newNode;
+            node.prev = newNode;
+            if (index == 0) {
+                head = newNode;
+            }
+        }
+        size++;
+    }
+
+    public boolean remove(T item) {
+        Node<T> node = head;
+        while (node != null) {
+            if (node.element.equals(item)) {
+                removeNode(node);
+                return true;
+            }
+            node = node.next;
+        }
+        return false;
+    }
+
+    public T remove(int index) {
+        Node<T> node = getNode(index);
+        removeNode(node);
+        return node.element;
+    }
+
+    public void clear() {
+        head = null;
+        tail = null;
+        size = 0;
+    }
+
+    public T get(int index) {
+        return getNode(index).element;
+    }
+
+    public void sort() {
+        // This implementation uses a simple insertion sort
+        for (int i = 1; i < size; i++) {
+            T item = get(i);
+            int j = i - 1;
+            while (j >= 0 && get(j).compareTo(item) > 0) {
+                set(j + 1, get(j));
+                j--;
+            }
+            set(j + 1, item);
+        }
+    }
+}
